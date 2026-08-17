@@ -23,3 +23,10 @@ The homepage is `/index.html`; the documentation landing page is `/docs.html`; a
 After meaningful Jsonic++ behavior changes, review the website's Battle Tested/production claims and this handover. After meaningful website changes, full-build with the current Nift candidate, perform an immediate no-op incremental build and local reference scan, then update project history.
 
 Detailed website history lives at `docs/handover/PROJECT-HISTORY.md`.
+
+## Visual and comparison reconciliation (2026-08-18)
+
+- Documentation content widened so ordinary C++ examples do not trigger horizontal scrolling prematurely; code-block scrollbars are theme-aware, including explicit dark-mode track/thumb styling.
+- Inline code is vertically reconciled with surrounding prose; keep this checked when changing typography.
+- The brand mark is `J++`, not `J+`. The docs sidebar intentionally links product/documentation resources only; do not re-add a Website Source link there.
+- `docs/comparisons` is the canonical architectural comparison page. It compares Jsonic++ with nlohmann/json, simdjson, RapidJSON and Boost.JSON using strengths/trade-offs rather than claiming a universal winner. Keep current feature claims grounded in official project documentation and keep benchmark claims separate unless same-host evidence exists.

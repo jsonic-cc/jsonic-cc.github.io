@@ -1,13 +1,13 @@
 {
-  "name": "docs/contracts",
-  "title": "Contracts",
+  "name": "docs/comparisons",
+  "title": "Comparisons",
   "template": "templates/template.html",
-  "content": "content/docs/contracts.html",
-  "output": "public/docs/contracts.html",
+  "content": "content/docs/comparisons.html",
+  "output": "public/docs/comparisons.html",
   "minify": true,
   "minify-version": 1,
   "dependencies": [
-    "content/docs/contracts.html",
+    "content/docs/comparisons.html",
     "templates/head.html",
     "templates/sidebar.html",
     "templates/template.html"

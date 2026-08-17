@@ -1,19 +1,86 @@
 {
   "tracked": [
-    {"name":"/","title":"Tiny embeddable JSON for C++","template":"templates/template.html"},
-    {"name":"docs","title":"Documentation","template":"templates/template.html"},
-    {"name":"docs/getting-started","title":"Getting started","template":"templates/template.html"},
-    {"name":"docs/api","title":"API","template":"templates/template.html"},
-    {"name":"docs/architecture","title":"Architecture","template":"templates/template.html"},
-    {"name":"docs/contracts","title":"Contracts","template":"templates/template.html"},
-    {"name":"docs/battle-tested","title":"Battle tested","template":"templates/template.html"},
-    {"name":"docs/production-readiness","title":"Production readiness","template":"templates/template.html"},
-    {"name":"docs/developer-experience","title":"Developer experience","template":"templates/template.html"},
-    {"name":"docs/ai-opinion","title":"AI opinion","template":"templates/template.html"},
-    {"name":"docs/ai-development","title":"AI development","template":"templates/template.html"},
-    {"name":"docs/ai-assistants","title":"AI assistants","template":"templates/template.html"},
-    {"name":"docs/human-directed-agentic-engineering","title":"Human-directed agentic engineering","template":"templates/template.html"},
-    {"name":"assets/css/style","title":"Website styles","content-ext":".css","output-ext":".css"},
-    {"name":"assets/js/script","title":"Website script","content-ext":".js","output-ext":".js"}
+    {
+      "name": "/",
+      "title": "Tiny embeddable JSON for C++",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs",
+      "title": "Documentation",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/getting-started",
+      "title": "Getting started",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/api",
+      "title": "API",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/architecture",
+      "title": "Architecture",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/comparisons",
+      "title": "Comparisons",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/contracts",
+      "title": "Contracts",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/battle-tested",
+      "title": "Battle tested",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/production-readiness",
+      "title": "Production readiness",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/developer-experience",
+      "title": "Developer experience",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/ai-opinion",
+      "title": "AI opinion",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/ai-development",
+      "title": "AI development",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/ai-assistants",
+      "title": "AI assistants",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "docs/human-directed-agentic-engineering",
+      "title": "Human-directed agentic engineering",
+      "template": "templates/template.html"
+    },
+    {
+      "name": "assets/css/style",
+      "title": "Website styles",
+      "content-ext": ".css",
+      "output-ext": ".css"
+    },
+    {
+      "name": "assets/js/script",
+      "title": "Website script",
+      "content-ext": ".js",
+      "output-ext": ".js"
+    }
   ]
 }

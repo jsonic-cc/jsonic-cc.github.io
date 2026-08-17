@@ -28,7 +28,7 @@ h1,h2{letter-spacing:-.05em;line-height:1.05}
 .stat{border-top:1px solid var(--line);padding:24px 10px}
 .stat strong{font-size:2rem;display:block}
 .stat span{font:600 0.72rem ui-monospace;color:var(--mut);text-transform:uppercase}
-.doc{max-width:1120px;margin:auto;padding:55px 5vw;display:grid;grid-template-columns:210px minmax(0,780px);gap:55px}
+.doc{max-width:1240px;margin:auto;padding:55px 4vw;display:grid;grid-template-columns:210px minmax(0,900px);gap:55px}
 .side{position:sticky;top:90px;align-self:start}
 .side,article{min-width:0}
 .side b{display:block;color:var(--a);font:700 0.72rem ui-monospace;margin:18px 0 6px;text-transform:uppercase}
@@ -37,7 +37,11 @@ h1,h2{letter-spacing:-.05em;line-height:1.05}
 article h1{font-size:clamp(2.8rem,5vw,5rem);margin:.15em 0 0.5em}
 article h2{font-size:2rem;border-top:1px solid var(--line);padding-top:.8em;margin-top:2.3em}
 article p,article li{color:var(--mut)}
-pre{position:relative;background:var(--code);color:var(--ci);padding:22px 55px 22px 22px;overflow:auto;border-left:4px solid var(--a)}
+pre{position:relative;background:var(--code);color:var(--ci);padding:22px 55px 22px 22px;overflow:auto;border-left:4px solid var(--a);scrollbar-width:thin;scrollbar-color:var(--a) var(--code)}
+pre::-webkit-scrollbar{width:10px;height:10px}
+pre::-webkit-scrollbar-track{background:var(--code)}
+pre::-webkit-scrollbar-thumb{background:var(--a);border:2px solid var(--code);border-radius:999px}
+pre::-webkit-scrollbar-corner{background:var(--code)}
 pre code{font:500 0.88rem/1.65 ui-monospace,monospace}
 .copy{position:absolute;right:9px;top:9px;width:33px;height:33px;background:#202720;color:white;border:1px solid #4a554c;font-size:0}
 .copy:after{content:'⧉';font-size:18px}
@@ -46,7 +50,7 @@ pre code{font:500 0.88rem/1.65 ui-monospace,monospace}
 .str{color:#bce88e}
 .num{color:#8fd4ff}
 .com{color:#7b897f}
-code:not(pre code){font:600 0.9em ui-monospace;background:var(--card);padding:.1em 0.3em}
+code:not(pre code){font:600 0.9em ui-monospace;background:var(--card);padding:.1em 0.3em;vertical-align:.06em}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);max-width:1050px;margin:30px auto}
 .card{background:var(--card);padding:26px}
 .score{display:grid;grid-template-columns:210px 1fr 45px;gap:12px;align-items:center;margin:12px 0}
@@ -92,4 +96,7 @@ header{gap:12px}
 footer{gap:20px;flex-direction:column}
 .chart{height:330px;padding:8px}
 .chart.tall{height:430px}
+pre{padding:18px 46px 18px 14px}
+pre code{font-size:.78rem}
+.doc{padding-left:3vw;padding-right:3vw}
 }
