@@ -30,3 +30,9 @@ Detailed website history lives at `docs/handover/PROJECT-HISTORY.md`.
 - Inline code is vertically reconciled with surrounding prose; keep this checked when changing typography.
 - The brand mark is `J++`, not `J+`. The docs sidebar intentionally links product/documentation resources only; do not re-add a Website Source link there.
 - `docs/comparisons` is the canonical architectural comparison page. It compares Jsonic++ with nlohmann/json, simdjson, RapidJSON and Boost.JSON using strengths/trade-offs rather than claiming a universal winner. Keep current feature claims grounded in official project documentation and keep benchmark claims separate unless same-host evidence exists.
+
+## API and code presentation (2026-08-18)
+
+- `docs/api` is the canonical public-surface reference and should stay synchronized with `jsonic/include/json.h`; document direct payload fields and mutation/exception semantics rather than implying conversion helpers that do not exist.
+- C++ snippets use the site's local dependency-free highlighter. It should visibly distinguish major C++ token families (types/functions/namespaces/members/preprocessor/literals/comments), not regress to keyword-only coloring.
+- Comparison pages should lead with strengths, weaknesses and architectural differences; contextual “better fit” guidance is useful, but universal winner language is not.

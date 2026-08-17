@@ -7,3 +7,9 @@ The first full site was created alongside extraction of Jsonic++ from the byte-i
 ## August 2026 — visual polish and comparison guide
 
 Widened the documentation/code column, added theme-aware code-block scrollbars, corrected inline-code baseline alignment, changed the compact brand mark from `J+` to `J++`, and removed the website-source link from the docs sidebar. Added `/docs/comparisons.html` as a candid decision guide against nlohmann/json, simdjson, RapidJSON and Boost.JSON. The comparison explicitly treats Jsonic++'s tiny auditable surface as a niche rather than pretending it beats mature libraries on ecosystem breadth or throughput specialization.
+
+## 2026-08-18 — API reference, C++ highlighting, and comparison framing
+
+- Expanded `docs/api` from a compact overview into a reference grounded directly in the public `json.h` surface: all six JSON types, payload fields, object/array access and mutation semantics, scalar helpers, constructors, direct type inspection, serialization, streaming named-array iteration, and exception/error behavior.
+- Reworked the client-side C++ highlighter to distinguish keywords, types, functions, namespaces, members, literals, comments, preprocessor directives/includes, operators and punctuation rather than applying only a few broad colors.
+- Reframed `docs/comparisons` around strengths, weaknesses and architectural differences first; removed the self-comparison row; retained contextual “which is the better fit?” guidance without presenting a universal ranking.

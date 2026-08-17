@@ -46,10 +46,20 @@ pre code{font:500 0.88rem/1.65 ui-monospace,monospace}
 .copy{position:absolute;right:9px;top:9px;width:33px;height:33px;background:#202720;color:white;border:1px solid #4a554c;font-size:0}
 .copy:after{content:'⧉';font-size:18px}
 .copy.ok:after{content:'✓';color:#7fe0be}
-.kw{color:#ff9a70}
-.str{color:#bce88e}
-.num{color:#8fd4ff}
-.com{color:#7b897f}
+
+/* C++ syntax highlighting: deliberately richer than the site's generic code treatment. */
+.tok-kw{color:#ff8f70;font-weight:650}
+.tok-type{color:#73daca}
+.tok-fn{color:#ffd580}
+.tok-str,.tok-inc{color:#aadf7f}
+.tok-num{color:#8fc7ff}
+.tok-lit{color:#d7a7ff}
+.tok-com{color:#76847b;font-style:italic}
+.tok-pp{color:#c6a0f6}
+.tok-ns{color:#8aadf4}
+.tok-member{color:#91d7e3}
+.tok-op{color:#c8d3cb}
+.tok-pun{color:#aab4ad}
 code:not(pre code){font:600 0.9em ui-monospace;background:var(--card);padding:.1em 0.3em;vertical-align:.06em}
 .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);max-width:1050px;margin:30px auto}
 .card{background:var(--card);padding:26px}
@@ -82,6 +92,13 @@ th{font:700 0.75rem ui-monospace,monospace;text-transform:uppercase;color:var(--
 .check li:before{content:'✓';position:absolute;left:0;color:var(--g);font-weight:900}
 article h3{margin-top:2em}
 article ol{color:var(--mut)}
+
+.comparison-doc{max-width:1460px;grid-template-columns:210px minmax(0,1160px)}
+.comparison-doc article{max-width:none}
+.comparison-table{min-width:1080px}
+.comparison-table th:nth-child(1){width:15%}
+.comparison-table th:nth-child(2),.comparison-table th:nth-child(3){width:25%}
+.comparison-table th:nth-child(4){width:35%}
 @media (max-width:800px){nav{display:none}
 .hero{grid-template-columns:1fr}
 .stats{grid-template-columns:1fr 1fr}
@@ -99,8 +116,9 @@ footer{gap:20px;flex-direction:column}
 pre{padding:18px 46px 18px 14px}
 pre code{font-size:.78rem}
 .doc{padding-left:3vw;padding-right:3vw}
+.comparison-doc{grid-template-columns:1fr}
+.comparison-table{min-width:980px}
 }
 /* Inline links stay visibly distinct from surrounding copy. Navigation, cards and buttons keep their own affordances. */
 article a:not(.btn), .wide p a, .wide li a, .wide td a, footer a{color:var(--a);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 article a:not(.btn):hover, .wide p a:hover, .wide li a:hover, .wide td a:hover, footer a:hover{text-decoration-thickness:2px}
-.pp{color:#d9a8ff}
