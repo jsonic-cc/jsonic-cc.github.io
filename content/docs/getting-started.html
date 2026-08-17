@@ -1,0 +1,13 @@
+<div class="doc">@input("templates/sidebar.html")<article><div class="ey">Getting started</div><h1>Drop in <code>json.h</code>.</h1><p class="lead">Jsonic++ is header-only. Vendor <code>include/json.h</code> into your project and compile as C++17 or later.</p><pre><code class="language-cpp">#include "json.h"
+#include &lt;iostream&gt;
+
+int main() {
+    json::Document value;
+    std::string error;
+    if (!json::Document::parse(R"({"name":"Jsonic++"})", value, error)) {
+        std::cerr &lt;&lt; error &lt;&lt; "\n";
+        return 1;
+    }
+    std::cout &lt;&lt; value["name"].string &lt;&lt; "\n";
+}</code></pre><h2>Build the repository tests</h2><pre><code class="language-shell">make test
+make test-sanitize</code></pre><p>The standalone tests are only one layer. Parser changes are also synchronized into Nift and Minify++ and must pass those consumers' integration contracts.</p></article></div>

@@ -1,0 +1,24 @@
+{
+  "name": "/",
+  "title": "Tiny embeddable JSON for C++",
+  "template": "templates/template.html",
+  "content": "content/index.html",
+  "output": "public/index.html",
+  "minify": true,
+  "minify-version": 1,
+  "dependencies": [
+    "content/index.html",
+    "templates/head.html",
+    "templates/template.html"
+  ],
+  "reqs": [
+    "public/assets/css/style.css",
+    "public/assets/js/script.js",
+    "public/docs.html",
+    "public/docs/ai-opinion.html",
+    "public/docs/battle-tested.html",
+    "public/docs/contracts.html",
+    "public/docs/getting-started.html",
+    "public/index.html"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "docs/api",
+  "title": "API",
+  "template": "templates/template.html",
+  "content": "content/docs/api.html",
+  "output": "public/docs/api.html",
+  "minify": true,
+  "minify-version": 1,
+  "dependencies": [
+    "content/docs/api.html",
+    "templates/head.html",
+    "templates/sidebar.html",
+    "templates/template.html"
+  ],
+  "reqs": [
+    "public/assets/css/style.css",
+    "public/assets/js/script.js",
+    "public/docs.html",
+    "public/docs/ai-assistants.html",
+    "public/docs/ai-development.html",
+    "public/docs/ai-opinion.html",
+    "public/docs/api.html",
+    "public/docs/architecture.html",
+    "public/docs/battle-tested.html",
+    "public/docs/contracts.html",
+    "public/docs/developer-experience.html",
+    "public/docs/getting-started.html",
+    "public/docs/human-directed-agentic-engineering.html",
+    "public/docs/production-readiness.html",
+    "public/index.html"
+  ]
+}
