@@ -4,7 +4,7 @@ The Jsonic++ website is built with Nift and should remain a small, evidence-firs
 
 ## Source/deploy model
 
-The canonical authored website lives on `stage`; generated deployable output lives on `main` through the `public/` self-worktree/gitlink pattern used by the Minify++ and tscc websites.
+The canonical authored website lives on `stage`; generated deployable output lives on `main` through the nested `public/` main-checkout/gitlink pattern used by the Minify++ and tscc websites.
 
 ## URL layout
 
