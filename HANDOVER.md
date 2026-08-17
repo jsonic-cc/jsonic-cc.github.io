@@ -42,3 +42,9 @@ Detailed website history lives at `docs/handover/PROJECT-HISTORY.md`.
 - The homepage C++ sample must use the same local C++ tokenizer as documentation snippets; do not hand-color it separately. The hero sample intentionally suppresses copy-button chrome while still using `language-cpp`.
 - The docs landing, Getting Started, Architecture, Contracts, Production Readiness, Developer Experience, AI Development, AI Assistants, AI Opinion, Battle Tested, and HDAE pages now carry substantive explanatory content. Preserve that depth rather than collapsing them back to teaser pages.
 - Documentation tables must fit ordinary desktop widths without horizontal scrolling. Current rendered-width validation covers every generated table at 1024, 1100, 1280, 1366, 1440 and 1920 px. Narrow-screen scrolling remains acceptable.
+
+## Memory-safety living record checkpoint (2026-08-18)
+
+- `docs/memory-safety` is the dedicated living memory/resource-safety record beside Battle Tested. It currently documents the planned leak/lifetime/soak campaign and must not imply the dedicated campaign has already passed.
+- Future campaigns should record commit/date, platform, compiler/sanitizer versions, workload/repetition or duration, sanitizer/Valgrind result, and peak/settled memory observations where useful.
+- The homepage and first Getting Started C++ samples are intentionally line-broken to fit their normal desktop code columns without horizontal scrolling. Keep those examples readable rather than relying on forced code wrapping.

@@ -1,13 +1,13 @@
 {
-  "name": "docs/developer-experience",
-  "title": "Developer experience",
+  "name": "docs/memory-safety",
+  "title": "Memory & resource safety",
   "template": "templates/template.html",
-  "content": "content/docs/developer-experience.html",
-  "output": "public/docs/developer-experience.html",
+  "content": "content/docs/memory-safety.html",
+  "output": "public/docs/memory-safety.html",
   "minify": true,
   "minify-version": 1,
   "dependencies": [
-    "content/docs/developer-experience.html",
+    "content/docs/memory-safety.html",
     "templates/head.html",
     "templates/sidebar.html",
     "templates/template.html"

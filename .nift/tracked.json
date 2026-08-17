@@ -41,6 +41,11 @@
       "template": "templates/template.html"
     },
     {
+      "name": "docs/memory-safety",
+      "title": "Memory & resource safety",
+      "template": "templates/template.html"
+    },
+    {
       "name": "docs/production-readiness",
       "title": "Production readiness",
       "template": "templates/template.html"

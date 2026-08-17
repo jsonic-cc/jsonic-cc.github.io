@@ -6,7 +6,11 @@ int main() {
     json::Document value;
     std::string error;
 
-    if (!json::Document::parse(R"({"name":"Jsonic++","ready":true})", value, error)) {
+    const std::string source =
+        R"({"name":"Jsonic++","ready":true})";
+
+    if (!json::Document::parse(
+            source, value, error)) {
         std::cerr &lt;&lt; error &lt;&lt; "\n";
         return 1;
     }

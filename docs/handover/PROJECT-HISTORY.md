@@ -17,3 +17,9 @@ Widened the documentation/code column, added theme-aware code-block scrollbars, 
 ## 2026-08-18 — Documentation depth, hero C++ highlighting, and table audit
 
 Moved the homepage code example onto the same C++ highlighter used by documentation snippets, while keeping the hero free of copy-button chrome. Expanded the previously terse documentation pages into real guides covering integration, architecture, parser contracts, readiness, human/AI DX, agentic development and evidence interpretation. Reworked desktop table sizing so tables wrap within the content column rather than exposing horizontal scrollbars; a rendered audit found no table overflow across 1024–1920 px desktop viewports.
+
+## 2026-08-18 — Memory/resource-safety living documentation
+
+Added a dedicated Memory & resource safety documentation page and linked it from Battle Tested/navigation. The page is deliberately a maintained evidence record: the dedicated leak/soak campaign is still marked planned, and future runs should publish exact reproducible workload/toolchain/result metadata rather than converting one run into a timeless claim.
+
+The homepage and first Getting Started examples were line-broken at semantic C++ boundaries so they fit their intended desktop code columns without horizontal scrolling.

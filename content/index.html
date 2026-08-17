@@ -5,7 +5,9 @@
 json::Document doc;
 std::string error;
 
-json::Document::parse(text, doc, error);
+json::Document::parse(
+    text, doc, error
+);
 std::cout &lt;&lt; doc["name"].string;</code></pre>
 </section>
 <section class="stats"><div class="stat"><strong>1</strong><span>public header</span></div><div class="stat"><strong>0</strong><span>runtime dependencies</span></div><div class="stat"><strong>C++17</strong><span>toolchain baseline</span></div><div class="stat"><strong>3</strong><span>synchronized consumers</span></div></section>
