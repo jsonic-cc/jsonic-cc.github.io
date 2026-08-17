@@ -1,13 +1,32 @@
-<!doctype html> <html lang="en" data-theme="system"> <head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>Getting started · Jsonic++</title> <meta name="description" content="Jsonic++ is a tiny, embeddable, dependency-free JSON parser for C++17."> <link rel="stylesheet" href="../assets/css/style.css"> </head> <body> <header> <a class="brand" href="../"><i>J++</i>Jsonic++</a> <nav><a href="../docs.html">Docs</a><a href="./battle-tested.html">Evidence</a><a href="./ai-opinion.html">AI opinion</a><a href="https://github.com/nift-dev/jsonic">GitHub ↗</a></nav> <div class="themes"><button data-theme-choice="system">System</button><button data-theme-choice="light">Light</button><button data-theme-choice="dark">Dark</button></div> </header> <main> <div class="doc"><aside class="side"> <b>Start</b> <a href="../docs.html">Overview</a> <a href="./getting-started.html">Getting started</a> <a href="./api.html">API</a> <b>Design</b> <a href="./architecture.html">Architecture</a> <a href="./comparisons.html">Comparisons</a> <a href="./contracts.html">Contracts</a> <a href="./developer-experience.html">Developer experience</a> <b>Evidence</b> <a href="./battle-tested.html">Battle tested</a> <a href="./production-readiness.html">Production readiness</a> <b>AI</b> <a href="./ai-opinion.html">AI opinion</a> <a href="./ai-development.html">AI development</a> <a href="./ai-assistants.html">AI assistants</a> <a href="./human-directed-agentic-engineering.html">Human-directed agentic engineering</a> </aside><article><div class="ey">Getting started</div><h1>Drop in <code>json.h</code>.</h1><p class="lead">Jsonic++ is header-only. Vendor <code>include/json.h</code> into your project and compile as C++17 or later.</p><pre><code class="language-cpp">#include "json.h"
+<!doctype html> <html lang="en" data-theme="system"> <head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>Getting started · Jsonic++</title> <meta name="description" content="Jsonic++ is a tiny, embeddable, dependency-free JSON parser for C++17."> <link rel="stylesheet" href="../assets/css/style.css"> </head> <body> <header> <a class="brand" href="../"><i>J++</i>Jsonic++</a> <nav><a href="../docs.html">Docs</a><a href="./battle-tested.html">Evidence</a><a href="./ai-opinion.html">AI opinion</a><a href="https://github.com/nift-dev/jsonic">GitHub ↗</a></nav> <div class="themes"><button data-theme-choice="system">System</button><button data-theme-choice="light">Light</button><button data-theme-choice="dark">Dark</button></div> </header> <main> <div class="doc"><aside class="side"> <b>Start</b> <a href="../docs.html">Overview</a> <a href="./getting-started.html">Getting started</a> <a href="./api.html">API</a> <b>Design</b> <a href="./architecture.html">Architecture</a> <a href="./comparisons.html">Comparisons</a> <a href="./contracts.html">Contracts</a> <a href="./developer-experience.html">Developer experience</a> <b>Evidence</b> <a href="./battle-tested.html">Battle tested</a> <a href="./production-readiness.html">Production readiness</a> <b>AI</b> <a href="./ai-opinion.html">AI opinion</a> <a href="./ai-development.html">AI development</a> <a href="./ai-assistants.html">AI assistants</a> <a href="./human-directed-agentic-engineering.html">Human-directed agentic engineering</a> </aside><article><div class="ey">Getting started</div><h1>Drop in <code>json.h</code>.</h1><p class="lead">Jsonic++ is header-only. Vendor <code>include/json.h</code> into your project, compile as C++17 or later, and you have the complete parser, value model and serializer—there is no library to build or runtime dependency to ship.</p> <h2>Your first parse</h2><pre><code class="language-cpp">#include "json.h"
 #include &lt;iostream&gt;
 
 int main() {
     json::Document value;
     std::string error;
-    if (!json::Document::parse(R"({"name":"Jsonic++"})", value, error)) {
+
+    if (!json::Document::parse(R"({"name":"Jsonic++","ready":true})", value, error)) {
         std::cerr &lt;&lt; error &lt;&lt; "\n";
         return 1;
     }
+
     std::cout &lt;&lt; value["name"].string &lt;&lt; "\n";
-}</code></pre><h2>Build the repository tests</h2><pre><code class="language-shell">make test
-make test-sanitize</code></pre><p>The standalone tests are only one layer. Parser changes are also synchronized into Nift and Minify++ and must pass those consumers' integration contracts.</p></article></div> </main> <footer><strong>Jsonic++</strong><span>Tiny, embeddable JSON for C++.</span><a href="https://github.com/nift-dev/jsonic">Source ↗</a></footer> <script src="../assets/js/script.js"></script> </body> </html>
+    std::cout &lt;&lt; std::boolalpha &lt;&lt; value["ready"].boolean &lt;&lt; "\n";
+}</code></pre> <p><code>Document::parse()</code> returns <code>true</code> on success. On failure it returns <code>false</code> and fills the supplied error string with a message plus line and column information. Parsing never requires exceptions in the ordinary success/failure path.</p> <h2>Inspect before you read</h2><p>A <code>json::Document</code> can represent null, boolean, number, string, array or object. The <code>is_*()</code> helpers make type checks explicit; the public payload fields then expose ordinary C++ data.</p><pre><code class="language-cpp">if (value.has("name") &amp;&amp; value["name"].is_string()) {
+    const std::string&amp; name = value["name"].string;
+}
+
+if (value.has("items") &amp;&amp; value["items"].is_array()) {
+    for (const auto&amp; item : value["items"].array) {
+        // item is another json::Document
+    }
+}</code></pre> <h2>Construct and serialize</h2><p>You can also build documents directly. Null values promote to objects when indexed by key and to arrays when passed to <code>push_back()</code>, which keeps small construction code compact without hiding the resulting type.</p><pre><code class="language-cpp">json::Document response = json::Document::make_object();
+response["ok"] = true;
+response["message"] = "done";
+response["items"] = json::Document::make_array();
+response["items"].push_back(1);
+response["items"].push_back(2);
+
+std::string pretty = response.dump(2);
+std::string compact = response.dump(0);</code></pre> <h2>Integrate it your way</h2><p>The repository does not force CMake, pkg-config, generated code or a package-specific build model. Copy the header into a vendor/include directory, add that directory to your compiler include path, and keep ownership of the surrounding project. If you prefer to track Jsonic++ as a Git dependency, submodule or package recipe, the library shape does not change.</p> <h2>Build the repository tests</h2><pre><code class="language-shell">make test
+make test-sanitize</code></pre><p>The standalone tests are only one layer. Parser changes are also synchronized into Nift and Minify++ and must pass those consumers' integration contracts. Continue with the <a href="./api.html">API reference</a> for every public operation, or <a href="./contracts.html">Contracts</a> for the behavioral guarantees behind the implementation.</p></article></div> </main> <footer><strong>Jsonic++</strong><span>Tiny, embeddable JSON for C++.</span><a href="https://github.com/nift-dev/jsonic">Source ↗</a></footer> <script src="../assets/js/script.js"></script> </body> </html>
