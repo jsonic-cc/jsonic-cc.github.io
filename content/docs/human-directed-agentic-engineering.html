@@ -2,10 +2,18 @@
           ↓
    explicit contracts
           ↓
- agent implementation
+ agent investigation
           ↓
- tests / fuzz / sanitizers
+ implementation + tests
+          ↓
+ fuzz / sanitizers / consumers
           ↓
         evidence
           ↓
-   human checkpoint</code></pre><h2>Project memory, not model memory</h2><p>Important decisions belong in tests, handovers and source—not only in a conversation. A new agent should be able to recover why duplicate keys are rejected or why vendored copies must match without relying on someone remembering a chat transcript.</p><h2>Perception matters</h2><p>Agents can implement a well-framed parser change extremely quickly. Human direction remains high leverage when the real question is whether the proposed feature belongs in Jsonic++ at all, whether the test actually captures the intended guarantee, or whether complexity is growing faster than value.</p></article></div>
+   human checkpoint</code></pre>
+<h2>Direction is not the same as typing the implementation</h2><p>An agent can inspect a parser, generate edge cases, edit C++ and run a large test matrix much faster than a human can do each mechanical step. The high-leverage human work is deciding what the parser is supposed to mean: whether duplicate keys are accepted, whether numeric coercion belongs, whether an apparently convenient feature would permanently enlarge the API, and what evidence is sufficient before a change is accepted.</p>
+<h2>Start from a falsifiable guarantee</h2><p>“Improve Unicode support” is too vague. “Accept valid escaped surrogate pairs, reject lone high/low surrogates, preserve the decoded value through serialization, and keep useful line/column failures” gives an agent something it can attack. Good contracts create an adversarial task rather than a code-generation task.</p>
+<h2>Project memory, not model memory</h2><p>Important decisions belong in tests, handovers and source—not only in a conversation. A new agent should be able to recover why duplicate keys are rejected, why numbers are represented as <code>double</code>, or why vendored copies must match without relying on someone remembering a chat transcript.</p><p>This also makes work resumable. If one session ends after discovering a malformed-number family, the next session should inherit a reproducer, an explicit expectation and the current validation state—not just a claim that “number parsing was being improved.”</p>
+<h2>Agents should try to disprove the patch</h2><p>The most useful second pass is often adversarial: search for siblings of the fixed case, stress nested/empty/boundary forms, run sanitizers, compare parser and serializer behavior, and check downstream consumers. The goal is not to produce more tests for their own sake; it is to discover whether the stated contract has a larger failure surface than the first reproducer suggested.</p>
+<h2>Perception matters</h2><p>Agents can implement a well-framed parser change extremely quickly. Human direction remains high leverage when the real question is whether the proposed feature belongs in Jsonic++ at all, whether the test actually captures the intended guarantee, or whether complexity is growing faster than value.</p>
+<h2>The checkpoint question</h2><div class="call"><strong>Do not ask only “does it pass?”</strong><p>Ask what changed semantically, what evidence would have failed before the patch, what neighboring behavior was checked, whether downstream copies remain synchronized, and what is still unproven. A green suite is useful; a green suite tied to an explicit contract is much more useful.</p></div><p>For practical agent prompts, see <a href="@pathto('docs/ai-assistants')">AI assistants</a>. For parser-specific development habits, see <a href="@pathto('docs/ai-development')">AI development</a>.</p></article></div>

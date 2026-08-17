@@ -13,3 +13,7 @@ Widened the documentation/code column, added theme-aware code-block scrollbars, 
 - Expanded `docs/api` from a compact overview into a reference grounded directly in the public `json.h` surface: all six JSON types, payload fields, object/array access and mutation semantics, scalar helpers, constructors, direct type inspection, serialization, streaming named-array iteration, and exception/error behavior.
 - Reworked the client-side C++ highlighter to distinguish keywords, types, functions, namespaces, members, literals, comments, preprocessor directives/includes, operators and punctuation rather than applying only a few broad colors.
 - Reframed `docs/comparisons` around strengths, weaknesses and architectural differences first; removed the self-comparison row; retained contextual “which is the better fit?” guidance without presenting a universal ranking.
+
+## 2026-08-18 — Documentation depth, hero C++ highlighting, and table audit
+
+Moved the homepage code example onto the same C++ highlighter used by documentation snippets, while keeping the hero free of copy-button chrome. Expanded the previously terse documentation pages into real guides covering integration, architecture, parser contracts, readiness, human/AI DX, agentic development and evidence interpretation. Reworked desktop table sizing so tables wrap within the content column rather than exposing horizontal scrollbars; a rendered audit found no table overflow across 1024–1920 px desktop viewports.

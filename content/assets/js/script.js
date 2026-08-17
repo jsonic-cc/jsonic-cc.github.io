@@ -80,15 +80,17 @@
     const isCpp = code.classList.contains('language-cpp') || code.classList.contains('language-c++') || code.classList.contains('language-cxx');
     code.innerHTML = isCpp ? highlightCpp(raw) : highlightPlain(raw);
 
-    const button = document.createElement('button');
-    button.className = 'copy';
-    button.title = 'Copy';
-    button.setAttribute('aria-label', 'Copy code');
-    button.onclick = async () => {
-      await navigator.clipboard.writeText(raw);
-      button.classList.add('ok');
-      setTimeout(() => button.classList.remove('ok'), 1200);
-    };
-    code.parentElement.appendChild(button);
+    if (!code.hasAttribute('data-no-copy')) {
+      const button = document.createElement('button');
+      button.className = 'copy';
+      button.title = 'Copy';
+      button.setAttribute('aria-label', 'Copy code');
+      button.onclick = async () => {
+        await navigator.clipboard.writeText(raw);
+        button.classList.add('ok');
+        setTimeout(() => button.classList.remove('ok'), 1200);
+      };
+      code.parentElement.appendChild(button);
+    }
   });
 })();

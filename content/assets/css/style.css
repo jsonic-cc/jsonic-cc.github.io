@@ -19,7 +19,7 @@ h1,h2{letter-spacing:-.05em;line-height:1.05}
 .hero h1{font-size:clamp(4rem,8vw,7.5rem);margin:.15em 0}
 .hero h1 em{font-style:normal;color:var(--a)}
 .lead{font-size:1.2rem;color:var(--mut)}
-.term{background:var(--code);color:var(--ci);border-left:6px solid var(--a);padding:25px;font:500 0.9rem/1.75 ui-monospace,monospace}
+.term{margin:0;background:var(--code);color:var(--ci);border-left:6px solid var(--a);padding:25px;font:500 0.9rem/1.75 ui-monospace,monospace;white-space:pre;overflow:auto}
 .prompt{color:var(--g)}
 .actions{display:flex;gap:10px;margin-top:28px}
 .btn{border:1px solid var(--ink);padding:11px 15px;font-weight:750}
@@ -95,7 +95,7 @@ article ol{color:var(--mut)}
 
 .comparison-doc{max-width:1460px;grid-template-columns:210px minmax(0,1160px)}
 .comparison-doc article{max-width:none}
-.comparison-table{min-width:1080px}
+.comparison-table{width:100%;min-width:0;table-layout:fixed}
 .comparison-table th:nth-child(1){width:15%}
 .comparison-table th:nth-child(2),.comparison-table th:nth-child(3){width:25%}
 .comparison-table th:nth-child(4){width:35%}
@@ -117,8 +117,17 @@ pre{padding:18px 46px 18px 14px}
 pre code{font-size:.78rem}
 .doc{padding-left:3vw;padding-right:3vw}
 .comparison-doc{grid-template-columns:1fr}
-.comparison-table{min-width:980px}
+.comparison-table{min-width:760px}
 }
 /* Inline links stay visibly distinct from surrounding copy. Navigation, cards and buttons keep their own affordances. */
 article a:not(.btn), .wide p a, .wide li a, .wide td a, footer a{color:var(--a);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 article a:not(.btn):hover, .wide p a:hover, .wide li a:hover, .wide td a:hover, footer a:hover{text-decoration-thickness:2px}
+
+/* Tables fit normal desktop content widths. Horizontal scrolling is reserved for narrow screens. */
+.table-wrap table{max-width:100%}
+th,td{overflow-wrap:anywhere;word-break:normal}
+@media (min-width:801px){
+  .table-wrap{overflow-x:visible}
+  .table-wrap table{table-layout:fixed}
+  .table-wrap td code,.table-wrap th code{white-space:normal;overflow-wrap:anywhere}
+}

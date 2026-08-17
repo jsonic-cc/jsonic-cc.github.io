@@ -36,3 +36,9 @@ Detailed website history lives at `docs/handover/PROJECT-HISTORY.md`.
 - `docs/api` is the canonical public-surface reference and should stay synchronized with `jsonic/include/json.h`; document direct payload fields and mutation/exception semantics rather than implying conversion helpers that do not exist.
 - C++ snippets use the site's local dependency-free highlighter. It should visibly distinguish major C++ token families (types/functions/namespaces/members/preprocessor/literals/comments), not regress to keyword-only coloring.
 - Comparison pages should lead with strengths, weaknesses and architectural differences; contextual “better fit” guidance is useful, but universal winner language is not.
+
+## Content depth, hero highlighting, and desktop table policy (2026-08-18)
+
+- The homepage C++ sample must use the same local C++ tokenizer as documentation snippets; do not hand-color it separately. The hero sample intentionally suppresses copy-button chrome while still using `language-cpp`.
+- The docs landing, Getting Started, Architecture, Contracts, Production Readiness, Developer Experience, AI Development, AI Assistants, AI Opinion, Battle Tested, and HDAE pages now carry substantive explanatory content. Preserve that depth rather than collapsing them back to teaser pages.
+- Documentation tables must fit ordinary desktop widths without horizontal scrolling. Current rendered-width validation covers every generated table at 1024, 1100, 1280, 1366, 1440 and 1920 px. Narrow-screen scrolling remains acceptable.
