@@ -21,3 +21,5 @@ The homepage is `/index.html`; the documentation landing page is `/docs.html`; a
 ## Completion discipline
 
 After meaningful Jsonic++ behavior changes, review the website's Battle Tested/production claims and this handover. After meaningful website changes, full-build with the current Nift candidate, perform an immediate no-op incremental build and local reference scan, then update project history.
+
+Detailed website history lives at `docs/handover/PROJECT-HISTORY.md`.
