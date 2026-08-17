@@ -1,10 +1,86 @@
-<!doctype html> <html lang="en" data-theme="system"> <head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>API · Jsonic++</title> <meta name="description" content="Jsonic++ is a tiny, embeddable, dependency-free JSON parser for C++17."> <link rel="stylesheet" href="../assets/css/style.css"> </head> <body> <header> <a class="brand" href="../"><i>J++</i>Jsonic++</a> <nav><a href="../docs.html">Docs</a><a href="./battle-tested.html">Evidence</a><a href="./ai-opinion.html">AI opinion</a><a href="https://github.com/nift-dev/jsonic">GitHub ↗</a></nav> <div class="themes"><button data-theme-choice="system">System</button><button data-theme-choice="light">Light</button><button data-theme-choice="dark">Dark</button></div> </header> <main> <div class="doc"><aside class="side"> <b>Start</b> <a href="../docs.html">Overview</a> <a href="./getting-started.html">Getting started</a> <a href="./api.html">API</a> <b>Design</b> <a href="./architecture.html">Architecture</a> <a href="./comparisons.html">Comparisons</a> <a href="./contracts.html">Contracts</a> <a href="./developer-experience.html">Developer experience</a> <b>Evidence</b> <a href="./battle-tested.html">Battle tested</a> <a href="./production-readiness.html">Production readiness</a> <b>AI</b> <a href="./ai-opinion.html">AI opinion</a> <a href="./ai-development.html">AI development</a> <a href="./ai-assistants.html">AI assistants</a> <a href="./human-directed-agentic-engineering.html">Human-directed agentic engineering</a> </aside><article><div class="ey">API</div><h1>One value model.</h1><p class="lead"><code>json::Document</code> represents null, boolean, number, string, array and object values. The API intentionally exposes straightforward C++ data rather than a large abstraction hierarchy.</p><h2>Parse</h2><pre><code class="language-cpp">json::Document value;
+<!doctype html> <html lang="en" data-theme="system"> <head> <meta charset="utf-8"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>API · Jsonic++</title> <meta name="description" content="Jsonic++ is a tiny, embeddable, dependency-free JSON parser for C++17."> <link rel="stylesheet" href="../assets/css/style.css"> </head> <body> <header> <a class="brand" href="../"><i>J++</i>Jsonic++</a> <nav><a href="../docs.html">Docs</a><a href="./battle-tested.html">Evidence</a><a href="./ai-opinion.html">AI opinion</a><a href="https://github.com/nift-dev/jsonic">GitHub ↗</a></nav> <div class="themes"><button data-theme-choice="system">System</button><button data-theme-choice="light">Light</button><button data-theme-choice="dark">Dark</button></div> </header> <main> <div class="doc"><aside class="side"> <b>Start</b> <a href="../docs.html">Overview</a> <a href="./getting-started.html">Getting started</a> <a href="./api.html">API</a> <b>Design</b> <a href="./architecture.html">Architecture</a> <a href="./comparisons.html">Comparisons</a> <a href="./contracts.html">Contracts</a> <a href="./developer-experience.html">Developer experience</a> <b>Evidence</b> <a href="./battle-tested.html">Battle tested</a> <a href="./production-readiness.html">Production readiness</a> <b>AI</b> <a href="./ai-opinion.html">AI opinion</a> <a href="./ai-development.html">AI development</a> <a href="./ai-assistants.html">AI assistants</a> <a href="./human-directed-agentic-engineering.html">Human-directed agentic engineering</a> </aside><article><div class="ey">API reference</div><h1>One value type, six JSON types.</h1> <p class="lead"><code>json::Document</code> is the complete public value model. A document carries a <code>json::Type</code> tag plus deliberately ordinary C++ storage for null, booleans, numbers, strings, arrays and objects. You can use the convenience helpers where they fit, or access the underlying fields directly after checking the type.</p> <div class="call"><strong>The important rule is simple:</strong> check the value type before reading its payload. Jsonic++ does not hide JSON behind a conversion framework; it exposes the representation directly so the behavior stays obvious.</div> <h2>The six JSON types</h2> <div class="table-wrap"><table><thead><tr><th>JSON value</th><th><code>json::Type</code></th><th>Check</th><th>Read / inspect</th></tr></thead><tbody> <tr><td><code>null</code></td><td><code>Type::Null</code></td><td><code>value.is_null()</code></td><td>No separate payload</td></tr> <tr><td>boolean</td><td><code>Type::Boolean</code></td><td><code>value.is_bool()</code></td><td><code>value.boolean</code></td></tr> <tr><td>number</td><td><code>Type::Number</code></td><td><code>value.is_number()</code></td><td><code>value.num</code> as <code>double</code>; <code>as_int()</code> convenience helper</td></tr> <tr><td>string</td><td><code>Type::String</code></td><td><code>value.is_string()</code></td><td><code>value.string</code>; <code>as_string()</code> convenience helper</td></tr> <tr><td>array</td><td><code>Type::Array</code></td><td><code>value.is_array()</code></td><td><code>value.array</code>, index with <code>value[index]</code></td></tr> <tr><td>object</td><td><code>Type::Object</code></td><td><code>value.is_object()</code></td><td><code>value.object</code>, keys with <code>value["key"]</code></td></tr> </tbody></table></div> <h2>Parsing</h2> <p><code>Document::parse</code> parses one complete JSON value. It returns <code>true</code> on success. On failure it returns <code>false</code> and writes a human-readable error containing line and column information.</p> <pre><code class="language-cpp">std::string source = R"({"name":"Jsonic++","enabled":true})";
+json::Document value;
 std::string error;
+
 if (!json::Document::parse(source, value, error)) {
-    // error includes line and column information
-}</code></pre><h2>Inspect</h2><pre><code class="language-cpp">if (value.is_object() &amp;&amp; value.has("name")) {
-    std::cout &lt;&lt; value["name"].string;
+    std::cerr &lt;&lt; error &lt;&lt; '\n';
+    return 1;
+}</code></pre> <p>The parser expects the entire input to be JSON. Extra non-whitespace characters after the value are rejected rather than silently ignored.</p> <h2>Objects</h2> <p>Objects are stored as <code>std::vector&lt;std::pair&lt;std::string, json::Document&gt;&gt;</code>. For ordinary access, use <code>has()</code> and the string-key <code>operator[]</code>.</p> <pre><code class="language-cpp">if (value.is_object() &amp;&amp; value.has("name")) {
+    const json::Document &amp;name = value["name"];
+    if (name.is_string()) {
+        std::cout &lt;&lt; name.string &lt;&lt; '\n';
+    }
 }
 
-auto &amp;first = value["items"][0];</code></pre><h2>Serialize</h2><pre><code class="language-cpp">std::string compact = value.dump(0);
-std::string pretty  = value.dump(2);</code></pre><h2>Large named arrays</h2><p><code>for_each_array_item</code> can stream items from a named root-array member without constructing that entire array as one DOM. Nift uses this for large metadata files.</p></article></div> </main> <footer><strong>Jsonic++</strong><span>Tiny, embeddable JSON for C++.</span><a href="https://github.com/nift-dev/jsonic">Source ↗</a></footer> <script src="../assets/js/script.js"></script> </body> </html>
+if (value.has("enabled") &amp;&amp; value["enabled"].is_bool()) {
+    bool enabled = value["enabled"].boolean;
+}</code></pre> <p>Object access has intentionally useful mutation semantics. On a non-const <code>Document</code>, indexing a null value by key turns it into an object, and a missing key is inserted with a null value. On a const object, a missing key throws <code>std::out_of_range</code>. Indexing a non-object throws <code>std::runtime_error</code>.</p> <pre><code class="language-cpp">json::Document config;          // null
+config["name"] = "example";    // becomes an object
+config["enabled"] = true;
+config["retries"] = 3;
+
+for (const auto &amp;entry : config.object) {
+    const std::string &amp;key = entry.first;
+    const json::Document &amp;item = entry.second;
+    // inspect item.type or use item.is_*()
+}</code></pre> <h2>Arrays</h2> <p>Arrays are ordinary <code>std::vector&lt;json::Document&gt;</code> values. You can use the public <code>array</code> field directly, index through <code>operator[]</code>, or append with <code>push_back()</code>.</p> <pre><code class="language-cpp">if (value.has("items") &amp;&amp; value["items"].is_array()) {
+    const json::Document &amp;items = value["items"];
+
+    for (const json::Document &amp;item : items.array) {
+        // inspect each item
+    }
+
+    if (!items.array.empty()) {
+        const json::Document &amp;first = items[0];
+    }
+}</code></pre> <p>Array indexing uses bounds-checked <code>std::vector::at()</code>, so an invalid index throws <code>std::out_of_range</code>. <code>push_back()</code> turns a null document into an array automatically; calling it on another existing type throws <code>std::runtime_error</code>.</p> <pre><code class="language-cpp">json::Document tags;
+tags.push_back("fast");
+tags.push_back("small");
+tags.push_back(true);</code></pre> <h2>Strings</h2> <p>After <code>is_string()</code>, read the decoded UTF-8/string payload from <code>.string</code>. If you specifically want fallback behavior instead of a type branch, <code>as_string(fallback)</code> returns the stored string only when the value is a string.</p> <pre><code class="language-cpp">if (value["name"].is_string()) {
+    std::string name = value["name"].string;
+}
+
+std::string label = value["label"].as_string("untitled");</code></pre> <h2>Numbers</h2> <p>JSON numbers are stored in <code>.num</code> as <code>double</code>. Use <code>is_number()</code> before reading it. <code>as_int(fallback)</code> is a small convenience helper that casts the stored number to <code>int</code>; it is not a general numeric conversion system.</p> <pre><code class="language-cpp">if (value["ratio"].is_number()) {
+    double ratio = value["ratio"].num;
+}
+
+int retries = value["retries"].as_int(3);</code></pre> <h2>Booleans and null</h2> <p>Booleans live in <code>.boolean</code>. Null has no separate payload: the type itself is the value.</p> <pre><code class="language-cpp">if (value["enabled"].is_bool()) {
+    bool enabled = value["enabled"].boolean;
+}
+
+if (value["optional"].is_null()) {
+    // explicitly null
+}</code></pre> <h2>Constructing values</h2> <p><code>Document</code> has constructors for null, bool, int, double, C strings and <code>std::string</code>. Arrays and objects can be created explicitly with <code>make_array()</code> and <code>make_object()</code>, although null-to-container promotion means many small builders do not need them.</p> <pre><code class="language-cpp">json::Document nothing(nullptr);
+json::Document active(true);
+json::Document count(42);
+json::Document ratio(0.75);
+json::Document name("Jsonic++");
+
+json::Document list = json::Document::make_array();
+list.push_back("one");
+list.push_back("two");
+
+json::Document object = json::Document::make_object();
+object["name"] = name;
+object["items"] = list;</code></pre> <h2>Inspecting the type directly</h2> <p>The <code>is_*()</code> helpers are usually clearest, but <code>type</code> is public when a switch is more convenient.</p> <pre><code class="language-cpp">switch (value.type) {
+case json::Type::Null:    break;
+case json::Type::Boolean: std::cout &lt;&lt; value.boolean; break;
+case json::Type::Number:  std::cout &lt;&lt; value.num;     break;
+case json::Type::String:  std::cout &lt;&lt; value.string;  break;
+case json::Type::Array:   std::cout &lt;&lt; value.array.size();  break;
+case json::Type::Object:  std::cout &lt;&lt; value.object.size(); break;
+}</code></pre> <h2>Serialization</h2> <p><code>dump(indent)</code> serializes the complete value. An indent of <code>0</code> produces compact JSON; positive values pretty-print with that many spaces per level.</p> <pre><code class="language-cpp">std::string compact = value.dump(0);
+std::string pretty  = value.dump(2);</code></pre> <p>For custom streaming writers, <code>append_escaped_string()</code> appends an escaped JSON string payload without surrounding quotes, reusing Jsonic++'s own escaping rules.</p> <pre><code class="language-cpp">std::string out = "\"name\":\"";
+json::Document::append_escaped_string(out, name);
+out += '\"';</code></pre> <h2>Large named arrays without a full array DOM</h2> <p><code>for_each_array_item</code> is the one deliberately specialized parsing path. It expects a root JSON object and streams the items from one named root-array member through a callback, so the complete target array does not need to exist in memory at once. Other root members are still parsed and validated.</p> <pre><code class="language-cpp">std::string error;
+bool ok = json::Document::for_each_array_item(
+    source,
+    "pages",
+    [](json::Document &amp;&amp;page) {
+        if (page.is_object() &amp;&amp; page.has("title")) {
+            std::cout &lt;&lt; page["title"].as_string() &lt;&lt; '\n';
+        }
+        return true; // false stops iteration and reports rejection
+    },
+    error
+);</code></pre> <p>This is useful for very large generated metadata arrays—the reason it exists in Jsonic++—without turning the rest of the library into a streaming API.</p> <h2>Exceptions and parse errors</h2> <p>Parsing malformed JSON does not throw through the public <code>parse()</code> or <code>for_each_array_item()</code> APIs; they report failure through their boolean result and error string. Value-access misuse is different: wrong-type object/array access throws <code>std::runtime_error</code>, missing const object keys and out-of-range array indices throw <code>std::out_of_range</code>. That distinction keeps syntax errors explicit while still making programmer mistakes difficult to ignore.</p> <h2>Public surface at a glance</h2> <div class="table-wrap"><table><thead><tr><th>Area</th><th>API</th></tr></thead><tbody> <tr><td>Type</td><td><code>type</code>, <code>Type::{Null, Boolean, Number, String, Array, Object}</code></td></tr> <tr><td>Payloads</td><td><code>num</code>, <code>boolean</code>, <code>string</code>, <code>array</code>, <code>object</code></td></tr> <tr><td>Checks</td><td><code>is_null()</code>, <code>is_bool()</code>, <code>is_number()</code>, <code>is_string()</code>, <code>is_array()</code>, <code>is_object()</code></td></tr> <tr><td>Object access</td><td><code>has(key)</code>, <code>operator[](key)</code></td></tr> <tr><td>Array access</td><td><code>operator[](index)</code>, <code>push_back(value)</code></td></tr> <tr><td>Fallback helpers</td><td><code>as_string(fallback)</code>, <code>as_int(fallback)</code></td></tr> <tr><td>Creation</td><td>scalar constructors, <code>make_array()</code>, <code>make_object()</code></td></tr> <tr><td>Parsing</td><td><code>parse()</code>, <code>for_each_array_item()</code></td></tr> <tr><td>Output</td><td><code>dump(indent)</code>, <code>append_escaped_string()</code></td></tr> </tbody></table></div> </article></div> </main> <footer><strong>Jsonic++</strong><span>Tiny, embeddable JSON for C++.</span><a href="https://github.com/nift-dev/jsonic">Source ↗</a></footer> <script src="../assets/js/script.js"></script> </body> </html>
