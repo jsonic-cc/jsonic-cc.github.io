@@ -23,3 +23,7 @@ Moved the homepage code example onto the same C++ highlighter used by documentat
 Added a dedicated Memory & resource safety documentation page and linked it from Battle Tested/navigation. The page is deliberately a maintained evidence record: the dedicated leak/soak campaign is still marked planned, and future runs should publish exact reproducible workload/toolchain/result metadata rather than converting one run into a timeless claim.
 
 The homepage and first Getting Started examples were line-broken at semantic C++ boundaries so they fit their intended desktop code columns without horizontal scrolling.
+
+## 2026-08-18 — Jsonic++ memory-safety Checkpoint 1A and 1B attempt
+
+Published the first completed parser lifetime evidence: 120 in-process corpus iterations under ASan/LSan/UBSan with zero findings and a 400-iteration non-sanitized soak whose RSS settled at 10,688 KiB from midpoint through completion after a 10,624 KiB warm-up observation. No production parser fix was required. The independent Checkpoint 1B Valgrind run remains open because the execution environment contains no Valgrind binary; the documentation records that limitation explicitly rather than treating sanitizer evidence as a substitute.

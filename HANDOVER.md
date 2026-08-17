@@ -48,3 +48,11 @@ Detailed website history lives at `docs/handover/PROJECT-HISTORY.md`.
 - `docs/memory-safety` is the dedicated living memory/resource-safety record beside Battle Tested. It currently documents the planned leak/lifetime/soak campaign and must not imply the dedicated campaign has already passed.
 - Future campaigns should record commit/date, platform, compiler/sanitizer versions, workload/repetition or duration, sanitizer/Valgrind result, and peak/settled memory observations where useful.
 - The homepage and first Getting Started C++ samples are intentionally line-broken to fit their normal desktop code columns without horizontal scrolling. Keep those examples readable rather than relying on forced code wrapping.
+
+## Jsonic++ memory-safety Checkpoint 1A / 1B status (2026-08-18)
+
+- Checkpoint 1A is complete: the maintained long-lived Jsonic++ lifetime corpus passed 120 iterations under ASan + LSan + UBSan with zero findings.
+- The separate 400-iteration non-sanitized soak observed 10,624 KiB RSS after warm-up, 10,688 KiB at midpoint and 10,688 KiB at completion; treat this as stabilization evidence, not a standalone leak oracle.
+- No production Jsonic++ parser change was required by 1A.
+- Checkpoint 1B was attempted in the checkpoint environment, but no Valgrind executable is installed. Do not mark the independent leak-oracle gate complete until the focused corpus is run under Valgrind on a suitable Linux host.
+- Keep `docs/memory-safety` synchronized with future evidence and retain exact tool/workload/result details rather than replacing them with a generic “memory safe” claim.
