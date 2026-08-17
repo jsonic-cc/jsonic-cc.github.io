@@ -3,12 +3,12 @@ const root=document.documentElement;
 const themeButtons=[...document.querySelectorAll('[data-theme-choice]')];
 const applyTheme=theme=>{
 root.dataset.theme=theme;
-localStorage.setItem('minify-theme',theme);
+localStorage.setItem('jsonic-theme',theme);
 themeButtons.forEach(button=>{
 button.classList.toggle('active',button.dataset.themeChoice===theme);
 });
 };
-applyTheme(localStorage.getItem('minify-theme')||'system');
+applyTheme(localStorage.getItem('jsonic-theme')||'system');
 themeButtons.forEach(button=>{
 button.onclick=()=>applyTheme(button.dataset.themeChoice);
 });
