@@ -100,3 +100,7 @@ pre{padding:18px 46px 18px 14px}
 pre code{font-size:.78rem}
 .doc{padding-left:3vw;padding-right:3vw}
 }
+/* Inline links stay visibly distinct from surrounding copy. Navigation, cards and buttons keep their own affordances. */
+article a:not(.btn), .wide p a, .wide li a, .wide td a, footer a{color:var(--a);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+article a:not(.btn):hover, .wide p a:hover, .wide li a:hover, .wide td a:hover, footer a:hover{text-decoration-thickness:2px}
+.pp{color:#d9a8ff}
