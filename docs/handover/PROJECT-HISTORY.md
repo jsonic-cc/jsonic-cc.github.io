@@ -26,4 +26,7 @@ The homepage and first Getting Started examples were line-broken at semantic C++
 
 ## 2026-08-18 — Jsonic++ memory-safety Checkpoint 1A and 1B attempt
 
-Published the first completed parser lifetime evidence: 120 in-process corpus iterations under ASan/LSan/UBSan with zero findings and a 400-iteration non-sanitized soak whose RSS settled at 10,688 KiB from midpoint through completion after a 10,624 KiB warm-up observation. No production parser fix was required. The independent Checkpoint 1B Valgrind run remains open because the execution environment contains no Valgrind binary; the documentation records that limitation explicitly rather than treating sanitizer evidence as a substitute.
+Published the first completed parser lifetime evidence: 120 in-process corpus iterations under ASan/LSan/UBSan with zero findings and a 400-iteration non-sanitized soak whose RSS settled at 10,688 KiB from midpoint through completion after a 10,624 KiB warm-up observation. No production parser fix was required. At that checkpoint, the independent Checkpoint 1B Valgrind run remained open because the execution environment contained no Valgrind binary; the documentation records that limitation explicitly rather than treating sanitizer evidence as a substitute.
+## 2026-08-18 — Jsonic++ memory-safety Checkpoint 1B complete
+
+Independent Valgrind 3.26.0 confirmation passed on Linux at Jsonic++ commit `b9d0ff3`: 40 maintained lifetime-corpus iterations completed with 0 errors, 0 bytes in use at exit, all 6,579,515 allocations freed, and peak Valgrind process RSS of 215,992 KiB. Combined with the Checkpoint 1A sanitizer and stable-RSS evidence, this completed the Jsonic++ lifetime checkpoint without a production parser fix.

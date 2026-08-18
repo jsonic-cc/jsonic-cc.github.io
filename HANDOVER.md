@@ -54,5 +54,10 @@ Detailed website history lives at `docs/handover/PROJECT-HISTORY.md`.
 - Checkpoint 1A is complete: the maintained long-lived Jsonic++ lifetime corpus passed 120 iterations under ASan + LSan + UBSan with zero findings.
 - The separate 400-iteration non-sanitized soak observed 10,624 KiB RSS after warm-up, 10,688 KiB at midpoint and 10,688 KiB at completion; treat this as stabilization evidence, not a standalone leak oracle.
 - No production Jsonic++ parser change was required by 1A.
-- Checkpoint 1B was attempted in the checkpoint environment, but no Valgrind executable is installed. Do not mark the independent leak-oracle gate complete until the focused corpus is run under Valgrind on a suitable Linux host.
+- Checkpoint 1B was initially blocked in the checkpoint environment because Valgrind was unavailable, then completed on a Linux host with Valgrind 3.26.0. The independent gate is now satisfied; see the later Checkpoint 1B entry below for exact evidence.
 - Keep `docs/memory-safety` synchronized with future evidence and retain exact tool/workload/result details rather than replacing them with a generic “memory safe” claim.
+## Jsonic++ memory-safety Checkpoint 1B complete (2026-08-18)
+
+- Independent Linux confirmation passed under Valgrind 3.26.0 at Jsonic++ commit `b9d0ff3`: 40 lifetime-corpus iterations, 0 errors, 0 bytes in use at exit, and all 6,579,515 allocations freed.
+- Peak process RSS under Valgrind was 215,992 KiB; keep this separate from the non-sanitized steady-state RSS evidence because Valgrind materially changes process memory behavior.
+- Checkpoints 1A + 1B now satisfy the maintained Jsonic++ parser lifetime exit gate. Preserve the exact workload/tool/result details on `docs/memory-safety`; do not collapse this into an unconditional timeless “memory safe” claim.
