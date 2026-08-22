@@ -6,6 +6,11 @@
   "output": "public/docs/battle-tested.html",
   "minify": true,
   "minify-version": 1,
+  "pagination": false,
+  "pagination-items-per-page": 0,
+  "pagination-template": "",
+  "pagination-separator": "",
+  "pagination-pages": 0,
   "dependencies": [
     "content/docs/battle-tested.html",
     "templates/head.html",
