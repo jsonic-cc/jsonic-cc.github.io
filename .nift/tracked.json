@@ -86,6 +86,13 @@
       "title": "Website script",
       "content-ext": ".js",
       "output-ext": ".js"
+    },
+    {
+      "name": "sitemap",
+      "title": "Sitemap",
+      "template": "templates/asset.txt",
+      "content-ext": ".xml",
+      "output-ext": ".xml"
     }
   ]
 }

@@ -2,6 +2,17 @@
 
 The Jsonic++ website is built with Nift and should remain a small, evidence-first companion to the standalone parser.
 
+- Canonical repository: `jsonic-cc/jsonic` at `https://github.com/jsonic-cc/jsonic`.
+- Website source: `jsonic-cc/jsonic-cc.github.io` on `stage`; generated output on `main`.
+- Public domain: `https://jsonic.cc` (CNAME committed in `public/`).
+- Issue tracker: `https://github.com/jsonic-cc/jsonic/issues`.
+- Installer infrastructure: **not present**. Jsonic++ is header-only with no CLI
+  release packaging, so there is no `https://jsonic.cc/install.sh` endpoint and
+  the site intentionally documents no curl-install command. Revisit this if the
+  project gains release packaging; do not add a curl command ahead of it.
+- Canonical link tags and Open Graph metadata are emitted from
+  `templates/head.html` against `https://jsonic.cc`.
+
 ## Source/deploy model
 
 The canonical authored website lives on `stage`; generated deployable output lives on `main` through the nested `public/` main-checkout/gitlink pattern used by the Minify++ and tscc websites.
@@ -61,3 +72,8 @@ Detailed website history lives at `docs/handover/PROJECT-HISTORY.md`.
 - Independent Linux confirmation passed under Valgrind 3.26.0 at Jsonic++ commit `b9d0ff3`: 40 lifetime-corpus iterations, 0 errors, 0 bytes in use at exit, and all 6,579,515 allocations freed.
 - Peak process RSS under Valgrind was 215,992 KiB; keep this separate from the non-sanitized steady-state RSS evidence because Valgrind materially changes process memory behavior.
 - Checkpoints 1A + 1B now satisfy the maintained Jsonic++ parser lifetime exit gate. Preserve the exact workload/tool/result details on `docs/memory-safety`; do not collapse this into an unconditional timeless “memory safe” claim.
+
+## Website metadata
+
+- Canonical link tags and Open Graph metadata are emitted from `templates/head.html` against the public domain.
+- `content/sitemap.xml` is a tracked Nift page listing every page URL under the canonical domain; rebuild and commit its `public/sitemap.xml` output with the site.

@@ -2,4 +2,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>$[title] · Jsonic++</title>
 <meta name="description" content="Jsonic++ is a tiny, embeddable, dependency-free JSON parser for C++17.">
+@if(name != "/"){
+<link rel="canonical" href="https://jsonic.cc/$[name].html">
+<meta property="og:url" content="https://jsonic.cc/$[name].html">
+}
+@if(name == "/"){
+<link rel="canonical" href="https://jsonic.cc/">
+<meta property="og:url" content="https://jsonic.cc/">
+}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Jsonic++">
+<meta property="og:title" content="$[title] · Jsonic++">
+<meta property="og:description" content="Jsonic++ is a tiny, embeddable, dependency-free JSON parser for C++17.">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <link rel="stylesheet" href="@pathto('assets/css/style')">
