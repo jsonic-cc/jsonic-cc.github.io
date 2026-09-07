@@ -15,7 +15,8 @@ button.onclick=()=>applyTheme(button.dataset.themeChoice);
 const escapeHtml=source=>source
 .replace(/&/g,'&amp;')
 .replace(/</g,'&lt;')
-.replace(/>/g,'&gt;');
+.replace(/>/g,'&gt;')
+.replace(/"/g,'&quot;');
 const cppKeywords=new Set(`alignas alignof and and_eq asm atomic_cancel atomic_commit atomic_noexcept auto bitand bitor break case catch class compl concept const consteval constexpr constinit const_cast continue co_await co_return co_yield decltype default delete do dynamic_cast else enum explicit export extern for friend goto if inline mutable namespace new noexcept not not_eq operator or or_eq private protected public register reinterpret_cast requires return sizeof static static_assert static_cast struct switch template this thread_local throw try typedef typeid typename union using virtual volatile while xor xor_eq`.split(/\s+/));
 const cppTypes=new Set(`bool char char8_t char16_t char32_t double float int long short signed unsigned void wchar_t size_t nullptr_t string string_view vector pair unordered_set runtime_error out_of_range Document Type Callback`.split(/\s+/));
 const cppLiterals=new Set(['true','false','nullptr']);
@@ -65,10 +66,20 @@ rendered+=highlightCppFragment(rest);
 return rendered;
 }).join('\n');
 const highlightPlain=source=>escapeHtml(source);
+const highlightShell=source=>{
+let text=escapeHtml(source);
+return text
+.replace(/(^|\n)(\s*#.*)/g,'$1<span class="tok-com">$2</span>')
+.replace(/(&quot;[^&\n]*?&quot;|'[^'\n]*?')/g,'<span class="tok-str">$1</span>')
+.replace(/(^|\s)(--?[a-zA-Z0-9][\w-]*)/g,'$1<span class="tok-kw">$2</span>')
+.replace(/\b(make|test|sanitize|curl|git|cmake|nift|python3)\b/g,'<span class="tok-fn">$1</span>');
+};
 document.querySelectorAll('pre code').forEach(code=>{
 const raw=code.textContent;
-const isCpp=code.classList.contains('language-cpp')||code.classList.contains('language-c++')||code.classList.contains('language-cxx');
-code.innerHTML=isCpp?highlightCpp(raw):highlightPlain(raw);
+const classes=code.classList;
+const isCpp=classes.contains('language-cpp')||classes.contains('language-c++')||classes.contains('language-cxx');
+const isShell=classes.contains('language-shell')||classes.contains('language-bash');
+code.innerHTML=isCpp?highlightCpp(raw):isShell?highlightShell(raw):highlightPlain(raw);
 if(!code.hasAttribute('data-no-copy')){
 const button=document.createElement('button');
 button.className='copy';
