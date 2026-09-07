@@ -88,6 +88,13 @@
       "output-ext": ".js"
     },
     {
+      "name": "assets/favicon",
+      "title": "Jsonic++ favicon",
+      "template": "templates/asset.txt",
+      "content-ext": ".svg",
+      "output-ext": ".svg"
+    },
+    {
       "name": "sitemap",
       "title": "Sitemap",
       "template": "templates/asset.txt",

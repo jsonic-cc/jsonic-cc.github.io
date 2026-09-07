@@ -19,6 +19,7 @@
   ],
   "reqs": [
     "public/assets/css/style.css",
+    "public/assets/favicon.svg",
     "public/assets/js/script.js",
     "public/docs.html",
     "public/docs/ai-assistants.html",

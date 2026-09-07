@@ -24,6 +24,8 @@ h1,h2{letter-spacing:-.05em;line-height:1.05}
 .actions{display:flex;gap:10px;margin-top:28px}
 .btn{border:1px solid var(--ink);padding:11px 15px;font-weight:750}
 .btn.hot{background:var(--ink);color:var(--bg)}
+.evidence-actions{align-items:stretch}
+.evidence-actions .btn{display:inline-flex;align-items:center}
 .stats{max-width:1180px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);padding:0 5vw 70px}
 .stat{border-top:1px solid var(--line);padding:24px 10px}
 .stat strong{font-size:2rem;display:block}

@@ -9,6 +9,8 @@ for page in index docs docs/getting-started docs/api docs/architecture docs/comp
     grep -F '<meta name="viewport"' "public/$page.html" >/dev/null
     grep -F 'assets/css/style.css' "public/$page.html" >/dev/null
     grep -F 'assets/js/script.js' "public/$page.html" >/dev/null
+    grep -F '<title>Jsonic++</title>' "public/$page.html" >/dev/null
+    grep -F 'rel="icon" type="image/svg+xml"' "public/$page.html" >/dev/null
 done
 
 grep -F 'https://github.com/jsonic-cc/jsonic' public/index.html >/dev/null
@@ -17,6 +19,8 @@ grep -F 'rel="canonical" href="https://jsonic.cc/docs/getting-started.html"' pub
 grep -F 'og:site_name' public/index.html >/dev/null
 grep -F '<link rel="sitemap"' public/index.html >/dev/null
 test -s public/sitemap.xml
+test -s public/assets/favicon.svg
+grep -F 'class="actions evidence-actions"' public/index.html >/dev/null
 
 grep -F 'language-cpp' public/docs/getting-started.html >/dev/null
 grep -F 'language-shell' public/docs/getting-started.html >/dev/null
