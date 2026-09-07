@@ -6,10 +6,12 @@ The Jsonic++ website is built with Nift and should remain a small, evidence-firs
 - Website source: `jsonic-cc/jsonic-cc.github.io` on `stage`; generated output on `main`.
 - Public domain: `https://jsonic.cc` (CNAME committed in `public/`).
 - Issue tracker: `https://github.com/jsonic-cc/jsonic/issues`.
-- Installer infrastructure: **not present**. Jsonic++ is header-only with no CLI
-  release packaging, so there is no `https://jsonic.cc/install.sh` endpoint and
-  the site intentionally documents no curl-install command. Revisit this if the
-  project gains release packaging; do not add a curl command ahead of it.
+- Installer infrastructure: intentionally not provided. Jsonic++ is a
+  dependency-free, header-only library and deliberately does not ship the
+  Minify++/Markup++ curl-installer family or CLI release packaging, so there is
+  no `https://jsonic.cc/install.sh` endpoint and the site intentionally
+  documents no curl-install command. This is an intentional
+  project/distribution decision, not a tracked gap.
 - Canonical link tags and Open Graph metadata are emitted from
   `templates/head.html` against `https://jsonic.cc`.
 
