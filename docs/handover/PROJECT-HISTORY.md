@@ -1,5 +1,13 @@
 # Jsonic++ website project history
 
+## 2026-09-13 — Configuration parsing and diagnostics documentation
+
+Documented the additive `ParseOptions`, `ParseDiagnostic` and
+`DuplicateKeyPolicy` API. The site now distinguishes strict-default parsing
+from independently enabled comments/trailing commas, records zero-based byte
+and one-based line/column semantics, and accurately describes preserved number
+spellings and duplicate-member behavior.
+
 ## August 2026 — initial standalone website
 
 The first full site was created alongside extraction of Jsonic++ from the byte-identical JSON implementation used by Nift and Minify++. The site adopted Nift's `/docs/*.html` secondary-page convention from the start, system/light/dark themes, evidence-first Battle Tested and production-readiness pages, explicit contracts/AI-DX material, and Human-Directed Agentic Engineering guidance.

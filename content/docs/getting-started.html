@@ -19,6 +19,19 @@ int main() {
     std::cout &lt;&lt; std::boolalpha &lt;&lt; value["ready"].boolean &lt;&lt; "\n";
 }</code></pre>
 <p><code>Document::parse()</code> returns <code>true</code> on success. On failure it returns <code>false</code> and fills the supplied error string with a message plus line and column information. Parsing never requires exceptions in the ordinary success/failure path.</p>
+<h2>Configuration-file syntax is explicit</h2><p>Jsonic++ remains strict JSON unless you opt into extensions. Comments and trailing commas can be enabled independently, so a configuration reader does not need a separate comment-stripping pass and an ordinary data reader does not become permissive accidentally.</p><pre><code class="language-cpp">json::ParseOptions options;
+options.allow_comments = true;
+options.allow_trailing_commas = true;
+options.duplicate_keys =
+    json::DuplicateKeyPolicy::Reject;
+
+json::ParseDiagnostic diagnostic;
+if (!json::Document::parse(
+        source, value, diagnostic, options)) {
+    std::cerr &lt;&lt; diagnostic.message
+              &lt;&lt; " at " &lt;&lt; diagnostic.line
+              &lt;&lt; ':' &lt;&lt; diagnostic.column &lt;&lt; '\n';
+}</code></pre><p>The diagnostic also contains a zero-based byte offset. <code>options.max_depth</code> defaults to 512 and can be lowered at an untrusted input boundary.</p>
 <h2>Inspect before you read</h2><p>A <code>json::Document</code> can represent null, boolean, number, string, array or object. The <code>is_*()</code> helpers make type checks explicit; the public payload fields then expose ordinary C++ data.</p><pre><code class="language-cpp">if (value.has("name") &amp;&amp; value["name"].is_string()) {
     const std::string&amp; name = value["name"].string;
 }

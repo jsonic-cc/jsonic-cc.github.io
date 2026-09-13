@@ -50,6 +50,16 @@ Detailed website history lives at `docs/handover/PROJECT-HISTORY.md`.
 - C++ snippets use the site's local dependency-free highlighter. It should visibly distinguish major C++ token families (types/functions/namespaces/members/preprocessor/literals/comments), not regress to keyword-only coloring.
 - Comparison pages should lead with strengths, weaknesses and architectural differences; contextual “better fit” guidance is useful, but universal winner language is not.
 
+## Parsing options and diagnostics (2026-09-13)
+
+- Strict RFC 8259 parsing remains the default.
+- The API page documents independent comment/trailing-comma opt-ins,
+  duplicate-key rejection, configurable depth and structured diagnostics.
+- Preserve the distinction between six JSON value kinds and Jsonic++'s two
+  internal number representations (`Number` and `StrNumber`).
+- Duplicate members are preserved in source order by default; do not describe
+  rejection as the default.
+
 ## Content depth, hero highlighting, and desktop table policy (2026-08-18)
 
 - The homepage C++ sample must use the same local C++ tokenizer as documentation snippets; do not hand-color it separately. The hero sample intentionally suppresses copy-button chrome while still using `language-cpp`.

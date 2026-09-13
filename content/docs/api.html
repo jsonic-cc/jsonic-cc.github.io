@@ -6,7 +6,7 @@
 <div class="table-wrap"><table><thead><tr><th>JSON value</th><th><code>json::Type</code></th><th>Check</th><th>Read / inspect</th></tr></thead><tbody>
 <tr><td><code>null</code></td><td><code>Type::Null</code></td><td><code>value.is_null()</code></td><td>No separate payload</td></tr>
 <tr><td>boolean</td><td><code>Type::Boolean</code></td><td><code>value.is_bool()</code></td><td><code>value.boolean</code></td></tr>
-<tr><td>number</td><td><code>Type::Number</code></td><td><code>value.is_number()</code></td><td><code>value.num</code> as <code>double</code>; <code>as_int()</code> convenience helper</td></tr>
+<tr><td>number</td><td><code>Type::Number</code> or <code>Type::StrNumber</code></td><td><code>value.is_number()</code></td><td><code>value.num</code> as <code>double</code>; significant original spelling in <code>value.string</code> for <code>StrNumber</code></td></tr>
 <tr><td>string</td><td><code>Type::String</code></td><td><code>value.is_string()</code></td><td><code>value.string</code>; <code>as_string()</code> convenience helper</td></tr>
 <tr><td>array</td><td><code>Type::Array</code></td><td><code>value.is_array()</code></td><td><code>value.array</code>, index with <code>value[index]</code></td></tr>
 <tr><td>object</td><td><code>Type::Object</code></td><td><code>value.is_object()</code></td><td><code>value.object</code>, keys with <code>value["key"]</code></td></tr>
@@ -23,6 +23,25 @@ if (!json::Document::parse(source, value, error)) {
     return 1;
 }</code></pre>
 <p>The parser expects the entire input to be JSON. Extra non-whitespace characters after the value are rejected rather than silently ignored.</p>
+
+<h2>Parse options</h2>
+<p><code>json::ParseOptions</code> keeps strict RFC 8259 behavior as its default. Configuration readers can independently allow line/block comments and trailing commas, reject duplicate keys, or lower the nesting limit.</p>
+<pre><code class="language-cpp">json::ParseOptions options;
+options.allow_comments = true;
+options.allow_trailing_commas = true;
+options.duplicate_keys =
+    json::DuplicateKeyPolicy::Reject;
+options.max_depth = 128;
+
+json::ParseDiagnostic diagnostic;
+if (!json::Document::parse(
+        source, value, diagnostic, options)) {
+    std::cerr &lt;&lt; diagnostic.message
+              &lt;&lt; " at byte " &lt;&lt; diagnostic.offset
+              &lt;&lt; " (" &lt;&lt; diagnostic.line
+              &lt;&lt; ':' &lt;&lt; diagnostic.column &lt;&lt; ")\n";
+}</code></pre>
+<p><code>ParseDiagnostic::offset</code> is a zero-based byte offset. Lines and columns are one-based. The existing string-error overload remains available and formats the same message with line and column. Successful structured parses reset the diagnostic.</p>
 
 <h2>Objects</h2>
 <p>Objects are stored as <code>std::vector&lt;std::pair&lt;std::string, json::Document&gt;&gt;</code>. For ordinary access, use <code>has()</code> and the string-key <code>operator[]</code>.</p>
@@ -76,7 +95,7 @@ tags.push_back(true);</code></pre>
 std::string label = value["label"].as_string("untitled");</code></pre>
 
 <h2>Numbers</h2>
-<p>JSON numbers are stored in <code>.num</code> as <code>double</code>. Use <code>is_number()</code> before reading it. <code>as_int(fallback)</code> is a small convenience helper that casts the stored number to <code>int</code>; it is not a general numeric conversion system.</p>
+<p>JSON numbers expose their converted value in <code>.num</code> as <code>double</code>. Most use <code>Type::Number</code>; spellings whose significant representation would be lost use <code>Type::StrNumber</code> internally and retain the original token in <code>.string</code>. Both satisfy <code>is_number()</code>. <code>as_int(fallback)</code> is a small convenience helper that casts the converted number to <code>int</code>; it is not a general numeric conversion system.</p>
 <pre><code class="language-cpp">if (value["ratio"].is_number()) {
     double ratio = value["ratio"].num;
 }
@@ -114,7 +133,8 @@ object["items"] = list;</code></pre>
 <pre><code class="language-cpp">switch (value.type) {
 case json::Type::Null:    break;
 case json::Type::Boolean: std::cout &lt;&lt; value.boolean; break;
-case json::Type::Number:  std::cout &lt;&lt; value.num;     break;
+case json::Type::Number:
+case json::Type::StrNumber: std::cout &lt;&lt; value.num;   break;
 case json::Type::String:  std::cout &lt;&lt; value.string;  break;
 case json::Type::Array:   std::cout &lt;&lt; value.array.size();  break;
 case json::Type::Object:  std::cout &lt;&lt; value.object.size(); break;
@@ -146,18 +166,18 @@ bool ok = json::Document::for_each_array_item(
 <p>This is useful for very large generated metadata arrays—the reason it exists in Jsonic++—without turning the rest of the library into a streaming API.</p>
 
 <h2>Exceptions and parse errors</h2>
-<p>Parsing malformed JSON does not throw through the public <code>parse()</code> or <code>for_each_array_item()</code> APIs; they report failure through their boolean result and error string. Value-access misuse is different: wrong-type object/array access throws <code>std::runtime_error</code>, missing const object keys and out-of-range array indices throw <code>std::out_of_range</code>. That distinction keeps syntax errors explicit while still making programmer mistakes difficult to ignore.</p>
+<p>Parsing malformed JSON does not throw through the public <code>parse()</code> or <code>for_each_array_item()</code> APIs; they report failure through their boolean result and either an error string or <code>ParseDiagnostic</code>. Value-access misuse is different: wrong-type object/array access throws <code>std::runtime_error</code>, missing const object keys and out-of-range array indices throw <code>std::out_of_range</code>. That distinction keeps syntax errors explicit while still making programmer mistakes difficult to ignore.</p>
 
 <h2>Public surface at a glance</h2>
 <div class="table-wrap"><table><thead><tr><th>Area</th><th>API</th></tr></thead><tbody>
-<tr><td>Type</td><td><code>type</code>, <code>Type::{Null, Boolean, Number, String, Array, Object}</code></td></tr>
+<tr><td>Type</td><td><code>type</code>, <code>Type::{Null, Boolean, Number, StrNumber, String, Array, Object}</code></td></tr>
 <tr><td>Payloads</td><td><code>num</code>, <code>boolean</code>, <code>string</code>, <code>array</code>, <code>object</code></td></tr>
 <tr><td>Checks</td><td><code>is_null()</code>, <code>is_bool()</code>, <code>is_number()</code>, <code>is_string()</code>, <code>is_array()</code>, <code>is_object()</code></td></tr>
 <tr><td>Object access</td><td><code>has(key)</code>, <code>operator[](key)</code></td></tr>
 <tr><td>Array access</td><td><code>operator[](index)</code>, <code>push_back(value)</code></td></tr>
 <tr><td>Fallback helpers</td><td><code>as_string(fallback)</code>, <code>as_int(fallback)</code></td></tr>
 <tr><td>Creation</td><td>scalar constructors, <code>make_array()</code>, <code>make_object()</code></td></tr>
-<tr><td>Parsing</td><td><code>parse()</code>, <code>for_each_array_item()</code></td></tr>
+<tr><td>Parsing</td><td><code>parse()</code>, <code>for_each_array_item()</code>, <code>ParseOptions</code>, <code>ParseDiagnostic</code>, <code>DuplicateKeyPolicy</code></td></tr>
 <tr><td>Output</td><td><code>dump(indent)</code>, <code>append_escaped_string()</code></td></tr>
 </tbody></table></div>
 </article></div>
