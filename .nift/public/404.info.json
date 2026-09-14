@@ -1,0 +1,24 @@
+{
+  "name": "404",
+  "title": "Page not found",
+  "template": "templates/404.html",
+  "content": "content/404.html",
+  "output": "public/404.html",
+  "minify": true,
+  "minify-version": 1,
+  "pagination": false,
+  "pagination-items-per-page": 0,
+  "pagination-template": "",
+  "pagination-separator": "",
+  "pagination-pages": 0,
+  "dependencies": [
+    "content/404.html",
+    "templates/404.html"
+  ],
+  "reqs": [
+    "public/assets/css/style.css",
+    "public/assets/favicon.svg",
+    "public/docs.html",
+    "public/index.html"
+  ]
+}

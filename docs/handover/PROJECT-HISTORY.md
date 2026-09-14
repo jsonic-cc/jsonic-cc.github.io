@@ -38,3 +38,19 @@ Published the first completed parser lifetime evidence: 120 in-process corpus it
 ## 2026-08-18 — Jsonic++ memory-safety Checkpoint 1B complete
 
 Independent Valgrind 3.26.0 confirmation passed on Linux at Jsonic++ commit `b9d0ff3`: 40 maintained lifetime-corpus iterations completed with 0 errors, 0 bytes in use at exit, all 6,579,515 allocations freed, and peak Valgrind process RSS of 215,992 KiB. Combined with the Checkpoint 1A sanitizer and stable-RSS evidence, this completed the Jsonic++ lifetime checkpoint without a production parser fix.
+
+## 2026-09-15 — Conformance/performance reconciliation and standalone 404
+
+Reconciled the site with the current parser evidence after the independent
+conformance and performance campaigns. The homepage, Battle Tested,
+Production Readiness, Architecture, Contracts, Comparisons and AI Opinion now
+record the retained 810/810 conformance result, the Number/StrNumber numeric
+contract, and the same-host result that places Jsonic++ in the performance
+class of the conformant RapidJSON configuration without turning that into a
+universal cross-mode claim. Removed stale language that still treated external
+conformance and the standalone lifetime campaign as future work.
+
+Added a dedicated `/404.html` with no normal header/footer. Its design uses the
+Jsonic++ J++ mark, blue/green accents and a compact parser-diagnostic motif, and
+uses Nift v4 `@path(...)` resolution for stylesheet, favicon and internal links.
+The website smoke gate now checks the 404 and current evidence claims.

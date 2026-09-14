@@ -68,7 +68,7 @@ Detailed website history lives at `docs/handover/PROJECT-HISTORY.md`.
 
 ## Memory-safety living record checkpoint (2026-08-18)
 
-- `docs/memory-safety` is the dedicated living memory/resource-safety record beside Battle Tested. It currently documents the planned leak/lifetime/soak campaign and must not imply the dedicated campaign has already passed.
+- `docs/memory-safety` is the dedicated living memory/resource-safety record beside Battle Tested. The maintained ASan/LSan/UBSan, native RSS-soak and independent Valgrind lifetime gate is complete for the retained workloads; future edits must preserve that scoped wording rather than reverting to a planned-only state.
 - Future campaigns should record commit/date, platform, compiler/sanitizer versions, workload/repetition or duration, sanitizer/Valgrind result, and peak/settled memory observations where useful.
 - The homepage and first Getting Started C++ samples are intentionally line-broken to fit their normal desktop code columns without horizontal scrolling. Keep those examples readable rather than relying on forced code wrapping.
 
@@ -89,3 +89,19 @@ Detailed website history lives at `docs/handover/PROJECT-HISTORY.md`.
 
 - Canonical link tags and Open Graph metadata are emitted from `templates/head.html` against the public domain.
 - `content/sitemap.xml` is a tracked Nift page listing every page URL under the canonical domain; rebuild and commit its `public/sitemap.xml` output with the site.
+
+## Conformance + performance reconciliation (2026-09-15)
+
+- The independent `jsonic-cc/jsonic-conformance` repository retains **810/810** mandatory passes. Website content must no longer describe external conformance as merely future work.
+- Recent bounded parser hot-path work (`std::string_view` input, faster ASCII/string handling and numeric conversion work among the retained changes) brought Jsonic++ into the same performance class as the **conformant RapidJSON configuration** on the project's same-host native JSON benchmark while retaining 810/810.
+- Keep this claim scoped: it is evidence for the measured same-host DOM workloads, not a universal “faster than RapidJSON” claim and not a substitute for RapidJSON's SAX, allocator, encoding or optional SIMD capabilities.
+- Benchmark work is downstream of correctness: do not publish or retain a speed optimization if the independent conformance gate regresses.
+- The current numeric model has six logical JSON value kinds but seven `json::Type` tags because `Number` and `StrNumber` are both numeric. `StrNumber` preserves significant original spellings that would otherwise be lost while `.num` remains available as `double`.
+- `docs/ai-opinion`, `docs/comparisons`, `docs/battle-tested`, `docs/production-readiness`, `docs/contracts` and `docs/architecture` are synchronized to that evidence state.
+
+## Standalone 404 page (2026-09-15)
+
+- `/404.html` is tracked with `templates/404.html`, deliberately excluding the normal header/footer and theme controls.
+- The page uses the site's existing visual language (J++ mark, blue/green accents, parser-diagnostic treatment) rather than cloning Nift or Minify++.
+- Its stylesheet, favicon and internal links use canonical Nift v4 `@path(...)` resolution. Preserve the root-safe generated paths because a 404 may be served for arbitrary nested URLs.
+- `tests/site_smoke.sh` asserts the 404 exists, resolves its core assets and does not regain normal site chrome.

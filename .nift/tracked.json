@@ -76,6 +76,11 @@
       "template": "templates/template.html"
     },
     {
+      "name": "404",
+      "title": "Page not found",
+      "template": "templates/404.html"
+    },
+    {
       "name": "assets/css/style",
       "title": "Website styles",
       "content-ext": ".css",

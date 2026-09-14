@@ -21,6 +21,20 @@ grep -F '<link rel="sitemap"' public/index.html >/dev/null
 test -s public/sitemap.xml
 test -s public/assets/favicon.svg
 grep -F 'class="actions evidence-actions"' public/index.html >/dev/null
+grep -F '810/810' public/index.html >/dev/null
+grep -F 'RapidJSON' public/index.html >/dev/null
+grep -F '810/810' public/docs/battle-tested.html >/dev/null
+grep -F 'RapidJSON' public/docs/ai-opinion.html >/dev/null
+
+test -s public/404.html
+grep -F '<title>Page not found · Jsonic++</title>' public/404.html >/dev/null
+grep -F 'assets/css/style.css' public/404.html >/dev/null
+grep -F 'assets/favicon.svg' public/404.html >/dev/null
+grep -F 'jsonic-error-page' public/404.html >/dev/null
+if grep -F '<header>' public/404.html >/dev/null || grep -F '<footer>' public/404.html >/dev/null; then
+    echo 'standalone 404 must not include normal site chrome' >&2
+    exit 1
+fi
 
 grep -F 'language-cpp' public/docs/getting-started.html >/dev/null
 grep -F 'language-shell' public/docs/getting-started.html >/dev/null
